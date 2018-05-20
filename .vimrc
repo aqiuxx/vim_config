@@ -181,6 +181,17 @@ set shiftwidth=4
 " 让 vim 把连续数量的空格视为一个制表符 
 set softtabstop=4
 
+" 自动缩进 
+set autoindent
+set smartindent
+set showmatch
+set cindent
+
+" 基于缩进或语法进行代码折叠
+"set foldmethod=indent
+set foldmethod=syntax
+" 启动 vim 时关闭折叠代码
+set nofoldenable
 
 " 随 vim 自启动
 let g:indent_guides_enable_on_vim_startup=1
@@ -190,15 +201,6 @@ let g:indent_guides_start_level=2
 let g:indent_guides_guide_size=1
 " 快捷键 i 开/关缩进可视化
 :nmap <silent> <Leader>i <Plug>IndentGuidesToggle
-
-
-
-" 基于缩进或语法进行代码折叠
-"set foldmethod=indent
-set foldmethod=syntax
-" 启动 vim 时关闭折叠代码
-set nofoldenable
-
 
 
 " startify
@@ -405,3 +407,4 @@ let g:EasyMotion_smartcase = 0
 " easymotion end
 "
 
+hi comment ctermfg=5
