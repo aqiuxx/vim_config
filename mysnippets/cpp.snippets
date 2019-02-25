@@ -1,0 +1,259 @@
+#================================= 
+#预处理 
+#================================= 
+# file header
+snippet hdr
+	/*
+	 * ${1:`expand('%:t')`} - ${2}
+	 *
+	 * (c) Copyright `strftime("%Y")` ${3:`g:snips_copyright`}. All Rights Reserved.
+	 *
+	 * Maintainer: ${4:`g:snips_author`} <${5:`g:snips_email`}>
+	 *    Created: `strftime("%Y-%m-%d")`
+	 * LastChange: `strftime("%Y-%m-%d")`
+	 */
+	${6}
+endsnippet 	
+snippet zj
+/**
+ * ${1}
+ **/
+endsnippet 
+# macro defines
+# #defile <...> 
+snippet def
+#define ${1} 
+endsnippet 
+snippet ifd
+#ifdef ${1}
+#endif
+endsnippet 
+snippet ifn
+#ifndef ${1}
+#endif
+endsnippet 
+snippet once
+#ifndef ${1:`toupper(Filename('', 'UNTITLED').'_H')`}
+#define $1
+${2}
+#endif /* $1 */
+endsnippet 
+# include file
+# snippet Inc
+#include <${1:stdio}.h>${2}
+# endsnippet
+snippet inc
+#include "${1:`Filename("$1")`}.h"${2}
+endsnippet 
+# #include "..." 
+snippet INC 
+#include "${1:TODO}"${2} 
+endsnippet 
+# #include <...> 
+# snippet inc
+#include <${1:TODO}>${2} 
+# endsnippet
+#================================= 
+#结构语句 
+#================================= 
+# if 
+snippet if 
+if (${1:/* condition */}) { 
+    ${2:TODO} 
+} 
+endsnippet 
+# else if 
+snippet ei 
+else if (${1:/* condition */}) { 
+    ${2:TODO} 
+} 
+endsnippet 
+# else 
+snippet el 
+else { 
+    ${1:TODO} 
+} 
+endsnippet 
+# return 
+snippet re 
+return(${1:/* condition */}); 
+endsnippet 
+# Do While Loop 
+snippet do 
+do { 
+    ${2:TODO} 
+} while (${1:/* condition */}); 
+endsnippet 
+# While Loop 
+snippet wh 
+while (${1:/* condition */}) { 
+    ${2:TODO} 
+} 
+endsnippet 
+# switch 
+snippet sw 
+switch (${1:/* condition */}) { 
+    case ${2:a}: { 
+		break; 
+    } 
+    case ${3:b}: { 
+		break; 
+    } 
+    default: { 
+		break; 
+    } 
+} 
+endsnippet 
+snippet case
+    case ${1:a}: {
+         break;
+	}
+endsnippet 
+# main()
+snippet main
+int main(int argc, const char *argv[])
+{
+	${1}
+	return 0;
+}
+endsnippet 
+# 通过迭代器遍历容器（可读写） 
+snippet for 
+for (auto ${2:iter} = ${1:c}.begin(); ${3:$2} != $1.end(); ${4:++iter}) {
+    ${5:TODO} 
+} 
+endsnippet 
+# 通过迭代器遍历容器（只读） 
+snippet cfor 
+for (auto ${2:citer} = ${1:c}.cbegin(); ${3:$2} != $1.cend(); ${4:++citer}) { 
+    ${5:TODO} 
+} 
+endsnippet 
+# 通过下标遍历容器 
+snippet For 
+for (decltype($1.size()) ${2:i} = 0; $2 != ${1}.size(); ${3:++}$2) { 
+    ${4:TODO} 
+} 
+endsnippet 
+# C++11风格for循环遍历（可读写） 
+snippet F 
+for (auto& e : ${1:c}) { 
+} 
+endsnippet 
+# C++11风格for循环遍历（只读） 
+snippet CF 
+for (const auto& e : ${1:c}) { 
+} 
+endsnippet 
+# For Loop 
+snippet FOR 
+for (unsigned ${2:i} = 0; $2 < ${1:count}; ${3:++}$2) { 
+    ${4:TODO} 
+} 
+endsnippet 
+# try-catch 
+snippet try 
+try { 
+} catch (${1:/* condition */}) { 
+} 
+endsnippet 
+snippet ca 
+catch (${1:/* condition */}) { 
+} 
+endsnippet 
+snippet throw 
+th (${1:/* condition */}); 
+endsnippet 
+#================================= 
+#容器 
+#================================= 
+# std::vector 
+snippet vec 
+vector<${1:char}>    v${2}; 
+endsnippet 
+# std::list 
+snippet lst 
+list<${1:char}>    l${2}; 
+endsnippet 
+# std::set 
+snippet set 
+set<${1:key}>    s${2}; 
+endsnippet 
+# std::map 
+snippet map 
+map<${1:key}, ${2:value}>    m${3}; 
+endsnippet 
+
+#================================= 
+#结对符 
+#================================= 
+# 括号 bracket
+snippet b "bracket" i 
+(${1})${2} 
+endsnippet 
+# 方括号 square bracket，设定为 st 而非 sb，避免与 b 冲突
+snippet st "square bracket" i 
+[${1}]${2} 
+endsnippet 
+# 大括号 brace 
+snippet br "brace" i 
+{ 
+    ${1} 
+}${2} 
+endsnippet 
+# 单引号 single quote，设定为 se 而非 sq，避免与 q 冲突
+snippet se "single quote" I
+'${1}'${2}
+endsnippet
+# 双引号 quote
+snippet q "quote" I
+"${1}"${2}
+endsnippet
+# 指针符号 arrow 
+snippet ar "arrow" i 
+->${1} 
+endsnippet 
+# dot 
+snippet d "dot" i 
+.${1} 
+endsnippet 
+# 作用域 scope 
+snippet sc "scope" i 
+::${1} 
+endsnippet
+
+# Read File Into Vector
+snippet readfile
+std::vector<char> v;
+if (FILE *${2:fp} = fopen(${1:"filename"}, "r")) {
+	char buf[1024];
+	while (size_t len = fread(buf, 1, sizeof(buf), $2))
+		v.insert(v.end(), buf, buf + len);
+	fclose($2);
+}${3}
+endsnippet
+# std::map
+snippet map
+std::map<${1:key}, ${2:value}> map${3};
+endsnippet
+# std::vector
+snippet vector
+std::vector<${1:char}> v${2};
+endsnippet
+# Namespace
+snippet ns
+namespace ${1:`Filename('', 'my')`} {
+	${2}
+} /* $1 */
+endsnippet
+# Class
+snippet cl
+class ${1:`Filename('$1_t', 'name')`} {
+public:
+	$1 (${2:arguments});
+	virtual ~$1 ();
+
+private:
+	${3:/* data */}
+};
+endsnippet
